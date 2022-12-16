@@ -1,0 +1,61 @@
+<!-- <div class="sm:col-span-2 lg:col-span-3 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6 mb-6">
+    <div class="flex text-2xl font-light tracking-tight text-secondary p-2">Period</div>
+
+    <div class="flex items-center justify-between mt-1 ml-10 mr-6 sm:mr-10">
+        <div class="flex flex-col flex-auto"> -->
+<mat-card class="m-2">
+  <mat-card-header>
+    <mat-card-title class="text-slate-200">Period</mat-card-title>
+    <mat-card-subtitle>Start</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-button-toggle-group class="hidden sm:inline-flex border-none space-x-1" [(ngModel)]="period"
+      (change)="onChange();">
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-year">
+        Last year
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="current-year">
+        Current year
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-quarter">Last
+        quarter
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="current-quarter">Current
+        quarter
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-month">Last
+        month
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-30-days">Last
+        30 days
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-15-days">Last
+        15 days
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+    <br/>
+    <mat-button-toggle-group class="hidden sm:inline-flex border-none space-x-1 mt-2" [(ngModel)]="interval"
+      (change)="onChange();">
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="days">
+        Days
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="weeks">
+        Weeks
+      </mat-button-toggle>
+      <!-- <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border-none font-medium"
+                                    value="fortnight">
+                                    Fortnight
+                                </mat-button-toggle> -->
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="months">
+        Months
+      </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="quarters">
+        Quarters
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-card-content>
+</mat-card>
+<!-- </div>
+    </div>
+</div> -->
