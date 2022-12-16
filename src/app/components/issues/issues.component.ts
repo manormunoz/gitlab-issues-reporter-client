@@ -94,7 +94,7 @@ export class IssuesComponent implements OnInit, OnChanges{
         labels: (issue.labels, []).join(', '),
         milestone: issue.milestone,
         web_url: issue.web_url,
-        total_time_spent: Duration.fromDurationLike({ seconds: issue.time_stats.total_time_spent * 1 }).toFormat('d\'d\' m\'m\''),
+        total_time_spent: Duration.fromDurationLike({ seconds: issue.time_stats.total_time_spent * 1 }).toFormat('d\'d\' h\'h\ m\'m\''),
       };
     });
     if (!this.dataSource) {
