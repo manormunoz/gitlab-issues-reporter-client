@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { first, firstValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  url: string = 'http://localhost:3200';
+  url: string = 'http://10.1.100.239:3200';
   headers: HttpHeaders;
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
