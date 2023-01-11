@@ -17,6 +17,7 @@ interface Issue {
   milestone?: string;
   web_url: string;
   total_time_spent?: string;
+  weight: number;
 };
 
 @Component({
@@ -44,6 +45,7 @@ export class IssuesComponent implements OnInit, OnChanges{
     // 'milestone',
     'closed_by',
     'total_time_spent',
+    'weight',
     'web_url',
   ];
   dataSource: MatTableDataSource<Issue>;
@@ -95,6 +97,7 @@ export class IssuesComponent implements OnInit, OnChanges{
         milestone: issue.milestone,
         web_url: issue.web_url,
         total_time_spent: Duration.fromDurationLike({ seconds: issue.time_stats.total_time_spent * 1 }).toFormat(`d'd' h'h' m'm'`),
+        weight: issue.weight || 1,
       };
     });
     if (!this.dataSource) {

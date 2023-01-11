@@ -57,11 +57,9 @@ export class HistoryGraphComponent implements OnInit, OnChanges {
     });
     //
     const _data = await Promise.all(petitions);
-    // console.log(_data);
     const all: any[] = [], closed: any[] = [], opened: any[] = [];
     _data.forEach(i => {
       const label = this.getLabel(i.params.start, this.interval);
-      console.log(label);
       all.push({
         x: label,
         y: i.statistics.counts.all,
@@ -91,7 +89,6 @@ export class HistoryGraphComponent implements OnInit, OnChanges {
         }
       ],
     };
-    console.log(this.interval);
     this.chart = {
       chart: {
         animations: {

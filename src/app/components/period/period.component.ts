@@ -66,8 +66,6 @@ export class PeriodComponent implements OnInit {
         end: endDay.toISO(),
       });
     }
-    console.log('periods', periods);
-    console.log('interval', this.interval);
     this.change.emit({ interval: this.interval, periods });
   }
 }

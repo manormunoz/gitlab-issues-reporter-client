@@ -65,14 +65,12 @@ export class ByuserGraphComponent implements OnInit, OnChanges {
     for (let page = 2; page <= pages; page++) {
       const _params = { ...params };
       _params.page = page;
-      console.log(_params);
       petitions.push(this.httpService.get('/issues', _params));
     }
     const results = await Promise.all(petitions);
     results.forEach(r => {
       issues = issues.concat(...r.body);
     });
-    console.log(issues);
     // console.log(_data);
     const all: any = {
       labels: [],
@@ -86,19 +84,15 @@ export class ByuserGraphComponent implements OnInit, OnChanges {
       series: [],
     };
     const grouped = _.map(_.groupBy(issues, i => i.service_desk_reply_to), (e, i) => ({user: i, issues: _.groupBy(e, j => j.state)}));
-    console.log(grouped);
     grouped.forEach((g: any) => {
-      console.log(g);
       all.labels.push(this.getLabel(g.user));
       all.colors.push('#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6))
       all.series.push((g.issues.closed || []).length + (g.issues.opened || []).length);
       closed.series.push((g.issues.closed || []).length);
       opened.series.push((g.issues.opened || []).length);
     });
-    console.log(all);
     [].map(i => {
       const label = this.getLabel(i.service_desk_reply_to);
-      console.log(label);
       all.push({
         x: label,
         y: i.statistics.counts.all,
