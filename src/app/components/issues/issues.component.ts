@@ -49,8 +49,8 @@ export class IssuesComponent implements OnInit, OnChanges{
     'web_url',
   ];
   dataSource: MatTableDataSource<Issue>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   tablePageSize = 20;
   tableLength = 300;
@@ -83,7 +83,6 @@ export class IssuesComponent implements OnInit, OnChanges{
     // = parseInt(response.headers['x-total-pages'], 10);
     this.tableLength = parseInt(response.headers['x-total'], 10);
     this.tablePageSize = parseInt(response.headers['x-per-page'], 10);
-
     const issues = response.body.map((issue: any) => {
       return {
         id: issue.id,
@@ -101,11 +100,13 @@ export class IssuesComponent implements OnInit, OnChanges{
       };
     });
     if (!this.dataSource) {
+
       this.dataSource = new MatTableDataSource(issues);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
     } else {
-      this.dataSource = new MatTableDataSource(issues);
+      this.dataSource.data = issues;
+      // this.dataSource.paginator.pageIndex = this.dataSource.paginator.pageIndex + 1;
     }
     this.loading = false;
   }

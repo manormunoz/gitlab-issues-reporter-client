@@ -64,7 +64,7 @@
         </tr> -->
     </table>
 
-    <mat-paginator *ngIf="!loading" (page)="change($event)" [pageSizeOptions]="[20, 30, 50, 100]"
+    <mat-paginator (page)="change($event)" [pageSizeOptions]="[20, 30, 50, 100]"
       [pageSize]="tablePageSize" [length]="tableLength" [hidePageSize]="false" [showFirstLastButtons]="true"
       aria-label="Select page"></mat-paginator>
   </mat-card-content>

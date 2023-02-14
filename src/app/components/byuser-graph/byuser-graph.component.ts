@@ -161,6 +161,7 @@ export class ByuserGraphComponent implements OnInit, OnChanges {
                                                 </div>`
       }
     };
+    console.log(this.chart);
     this.chartOpened = { ...this.chart, series: opened.series };
     this.chartClosed = { ...this.chart, series: closed.series };
     this.loading = false;
