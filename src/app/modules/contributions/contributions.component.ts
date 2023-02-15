@@ -11,36 +11,42 @@ import { ApexOptions } from 'ng-apexcharts';
 })
 export class ContributionsComponent implements OnInit {
   loading = true;
+  chart: ApexOptions;
   chartZebraFront: ApexOptions;
   chartZebraBack: ApexOptions;
   chartMigrationScripts: ApexOptions;
+  chartZBot: ApexOptions;
+  chartZebraApp: ApexOptions;
+  chartDotsFront: ApexOptions;
+  chartDotsBack: ApexOptions;
+
   values: any = {
     zebrafront: {
       name: 'ZebraFrontend',
       contributions: [
         {
           author: 'Orlando Muñoz',
-          value: 579,
+          value: 1167144,
           color: '#2E2E2E',
         },
         {
           author: 'Areli Mosqueda',
-          value: 426,
+          value: 951264,
           color: '#FFBF00',
         },
         {
           author: 'Álvaro Centeno',
-          value: 207,
+          value: 63223,
           color: '#8A0868',
         },
         {
           author: 'Armando Loredo',
-          value: 246,
+          value: 753826,
           color: '#FF8000',
         },
         {
           author: 'Ghost User',
-          value: 578,
+          value: 407945,
           color: '#BDBDBD',
         },
       ]
@@ -50,27 +56,27 @@ export class ContributionsComponent implements OnInit {
       contributions: [
         {
           author: 'Orlando Muñoz',
-          value: 864,
+          value: 86836,
           color: '#2E2E2E',
         },
         {
           author: 'Areli Mosqueda',
-          value: 202,
+          value: 82396,
           color: '#FFBF00',
         },
         {
           author: 'Álvaro Centeno',
-          value: 193,
+          value: 63907,
           color: '#8A0868',
         },
         {
           author: 'Armando Loredo',
-          value: 180,
+          value: 139984,
           color: '#FF8000',
         },
         {
           author: 'Ghost User',
-          value: 952,
+          value: 255054,
           color: '#BDBDBD',
         },
       ]
@@ -80,20 +86,110 @@ export class ContributionsComponent implements OnInit {
       contributions: [
         {
           author: 'Orlando Muñoz',
-          value: 104,
+          value: 24779,
           color: '#2E2E2E',
         },
         {
           author: 'Álvaro Centeno',
-          value: 49,
+          value: 2335,
           color: '#8A0868',
         },
         {
           author: 'Armando Loredo',
-          value: 29,
+          value: 6570,
           color: '#FF8000',
         },
       ]
+    },
+    zbot: {
+      name: 'Z-Bot',
+      contributions: [
+        {
+          author: 'Orlando Muñoz',
+          value: 40026,
+          color: '#2E2E2E',
+        },
+        // {
+        //   author: 'Álvaro Centeno',
+        //   value: 2335,
+        //   color: '#8A0868',
+        // },
+        // {
+        //   author: 'Armando Loredo',
+        //   value: 6570,
+        //   color: '#FF8000',
+        // },
+      ],
+    },
+    zebraapp: {
+      name: 'ZebraApp',
+      contributions: [
+        {
+          author: 'Orlando Muñoz',
+          value: 44478,
+          color: '#2E2E2E',
+        },
+        // {
+        //   author: 'Álvaro Centeno',
+        //   value: 2335,
+        //   color: '#8A0868',
+        // },
+        // {
+        //   author: 'Armando Loredo',
+        //   value: 6570,
+        //   color: '#FF8000',
+        // },
+      ],
+    },
+    dotsclient: {
+      name: 'DotsFrontEnd',
+      contributions: [
+        {
+          author: 'Orlando Muñoz',
+          value: 34223,
+          color: '#2E2E2E',
+        },
+        {
+          author: 'Saúl Martínez',
+          value: 20633,
+          color: '#0489B1',
+        },
+        // {
+        //   author: 'Álvaro Centeno',
+        //   value: 2335,
+        //   color: '#8A0868',
+        // },
+        // {
+        //   author: 'Armando Loredo',
+        //   value: 6570,
+        //   color: '#FF8000',
+        // },
+      ],
+    },
+    dotsback: {
+      name: 'DotsBackEnd',
+      contributions: [
+        {
+          author: 'Orlando Muñoz',
+          value: 202311,
+          color: '#2E2E2E',
+        },
+        {
+          author: 'Saúl Martínez',
+          value: 34832,
+          color: '#0489B1',
+        },
+        // {
+        //   author: 'Álvaro Centeno',
+        //   value: 2335,
+        //   color: '#8A0868',
+        // },
+        // {
+        //   author: 'Armando Loredo',
+        //   value: 6570,
+        //   color: '#FF8000',
+        // },
+      ],
     },
   };
   /**
@@ -169,6 +265,24 @@ export class ContributionsComponent implements OnInit {
         </div>`
       }
     };
+
+    const gColors = new Set([]);
+    const gLabels = new Set([]);
+    const gSeries: any = {};
+    _.each(this.values, (project) => {
+      project.contributions.forEach(c => {
+        gColors.add(c.color);
+        gLabels.add(c.author);
+        gSeries[c.author] = (gSeries[c.author] || 0) + c.value;
+      });
+    });
+    const total = _.sum(_.map(gSeries, s => s));
+    this.chart = {
+      ...this.chartZebraFront,
+      colors: Array.from(gColors),
+      labels: Array.from(gLabels),
+      series: _.map(gSeries, s => Number((s * 100 / total).toFixed(2))),
+    };
     this.chartZebraBack = {
       ...this.chartZebraFront,
       colors: this.values.zebraback.contributions.map(c => c.color),
@@ -180,6 +294,30 @@ export class ContributionsComponent implements OnInit {
       colors: this.values.migrationscripts.contributions.map(c => c.color),
       labels: this.values.migrationscripts.contributions.map(c => c.author),
       series: this.values.migrationscripts.contributions.map(c => this.getPercentage(this.values.migrationscripts, c.value)),
+    };
+    this.chartZBot = {
+      ...this.chartZebraFront,
+      colors: this.values.zbot.contributions.map(c => c.color),
+      labels: this.values.zbot.contributions.map(c => c.author),
+      series: this.values.zbot.contributions.map(c => this.getPercentage(this.values.zbot, c.value)),
+    };
+    this.chartZebraApp = {
+      ...this.chartZebraFront,
+      colors: this.values.zebraapp.contributions.map(c => c.color),
+      labels: this.values.zebraapp.contributions.map(c => c.author),
+      series: this.values.zebraapp.contributions.map(c => this.getPercentage(this.values.zebraapp, c.value)),
+    };
+    this.chartDotsBack = {
+      ...this.chartZebraFront,
+      colors: this.values.dotsback.contributions.map(c => c.color),
+      labels: this.values.dotsback.contributions.map(c => c.author),
+      series: this.values.dotsback.contributions.map(c => this.getPercentage(this.values.dotsback, c.value)),
+    };
+    this.chartDotsFront = {
+      ...this.chartZebraFront,
+      colors: this.values.dotsclient.contributions.map(c => c.color),
+      labels: this.values.dotsclient.contributions.map(c => c.author),
+      series: this.values.dotsclient.contributions.map(c => this.getPercentage(this.values.dotsclient, c.value)),
     };
     setTimeout(() => {
       this.loading = false;
