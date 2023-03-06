@@ -88,12 +88,21 @@ export class BydeveloperGraphComponent implements OnInit, OnChanges {
       series: [],
     };
     this.times = [];
-    const grouped = _.map(_.groupBy(issues, i => i.assignee?.name || 'Unassigned'), (e, i) => ({user: i, issues: _.groupBy(e, j => j.state)}));
+    const grouped = _.map(_.groupBy(issues, i => i.assignee?.name || 'Unassigned'), (e, i) => ({ user: i, issues: _.groupBy(e, j => j.state) }));
     grouped.forEach((g: any) => {
       const timeOpened = _.sumBy(g.issues.opened || [], (i: any) => i.time_stats?.total_time_spent || 0);
       const timeCloced = _.sumBy(g.issues.closed || [], (i: any) => i.time_stats?.total_time_spent || 0);
       all.labels.push(this.getLabel(g.user));
-      this.times.push(Duration.fromDurationLike({ seconds: timeOpened + timeCloced }).toFormat(`d'd' h'h' m'm'`));
+      // const days = (timeOpened + timeCloced) / 3600 / 8;
+      // console.log('days', days, days % 1);
+      // const realDays = (timeOpened + timeCloced) / 3600 / 24;
+      // const hours = (days % 1) * 8;
+      // console.log('hours', hours, hours % 1);
+
+      // const minutes = (hours % 1) * 60;
+      // console.log('minutes', minutes);
+
+      this.times.push(`${((timeOpened + timeCloced) / 3600).toFixed(2)} hrs`);
       all.colors.push('#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6))
       all.series.push((g.issues.closed || []).length + (g.issues.opened || []).length);
       closed.series.push((g.issues.closed || []).length);
