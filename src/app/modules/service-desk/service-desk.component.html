@@ -12,6 +12,7 @@
       <app-period (change)="changePeriod($event)"></app-period>
       <app-history-graph [periods]="periods" [interval]="interval" [author_id]="authorId"></app-history-graph>
       <app-byuser-graph [start]="startIssues" [end]="endIssues" [author_id]="authorId"></app-byuser-graph>
+      <app-bydeveloper-graph [start]="startIssues" [end]="endIssues" [author_id]="authorId"></app-bydeveloper-graph>
       <app-issues [start]="startIssues" [end]="endIssues" [author_id]="authorId"></app-issues>
     </div>
   </div>

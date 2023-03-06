@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpService } from '../../services/http/http.service';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 
 interface Issue {
   id: number;
@@ -95,7 +95,8 @@ export class IssuesComponent implements OnInit, OnChanges{
         labels: (issue.labels, []).join(', '),
         milestone: issue.milestone,
         web_url: issue.web_url,
-        total_time_spent: Duration.fromDurationLike({ seconds: issue.time_stats.total_time_spent * 1 }).toFormat(`d'd' h'h' m'm'`),
+        total_time_spent: issue.time_stats?.human_total_time_spent || '0m',
+        // Duration.fromDurationLike({ seconds: issue.time_stats.total_time_spent * 1 }).toFormat(`d'd' h'h' m'm'`),
         weight: issue.weight || 1,
       };
     });

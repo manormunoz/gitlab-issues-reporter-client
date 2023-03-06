@@ -1,16 +1,16 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http/http.service';
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import * as _ from 'lodash';
 import { ApexOptions } from 'ng-apexcharts';
 
 @Component({
-  selector: 'app-byuser-graph',
-  templateUrl: './byuser-graph.component.html',
-  styleUrls: ['./byuser-graph.component.scss']
+  selector: 'app-bydeveloper-graph',
+  templateUrl: './bydeveloper-graph.component.html',
+  styleUrls: ['./bydeveloper-graph.component.scss']
 })
-export class ByuserGraphComponent implements OnInit, OnChanges {
+export class BydeveloperGraphComponent implements OnInit, OnChanges {
 
   @Input() start: DateTime;
   @Input() end: DateTime;
@@ -20,6 +20,8 @@ export class ByuserGraphComponent implements OnInit, OnChanges {
   chart: ApexOptions;
   chartOpened: ApexOptions;
   chartClosed: ApexOptions;
+  times: string[] = [];
+
 
   constructor(private router: Router, private httpService: HttpService) {
 
@@ -83,14 +85,18 @@ export class ByuserGraphComponent implements OnInit, OnChanges {
     const opened: any = {
       series: [],
     };
-    const grouped = _.map(_.groupBy(issues, i => i.service_desk_reply_to), (e, i) => ({user: i, issues: _.groupBy(e, j => j.state)}));
+    const grouped = _.map(_.groupBy(issues, i => i.assignee?.name || 'Unassigned'), (e, i) => ({user: i, issues: _.groupBy(e, j => j.state)}));
     grouped.forEach((g: any) => {
+      const timeOpened = _.sumBy(g.issues.opened || [], (i: any) => i.time_stats?.total_time_spent || 0);
+      const timeCloced = _.sumBy(g.issues.closed || [], (i: any) => i.time_stats?.total_time_spent || 0);
       all.labels.push(this.getLabel(g.user));
+      this.times.push(Duration.fromDurationLike({ seconds: timeOpened + timeCloced }).toFormat(`d'd' h'h' m'm'`));
       all.colors.push('#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6))
       all.series.push((g.issues.closed || []).length + (g.issues.opened || []).length);
       closed.series.push((g.issues.closed || []).length);
       opened.series.push((g.issues.opened || []).length);
     });
+    // console.log(this.times);
     // [].map(i => {
     //   const label = this.getLabel(i.service_desk_reply_to);
     //   all.push({

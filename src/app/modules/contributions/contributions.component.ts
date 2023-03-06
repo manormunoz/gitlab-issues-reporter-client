@@ -26,7 +26,7 @@ export class ContributionsComponent implements OnInit {
       contributions: [
         {
           author: 'Orlando Muñoz',
-          value: 1167144,
+          value: 1667144,
           color: '#2E2E2E',
         },
         {
@@ -56,12 +56,12 @@ export class ContributionsComponent implements OnInit {
       contributions: [
         {
           author: 'Orlando Muñoz',
-          value: 86836,
+          value: 99836,
           color: '#2E2E2E',
         },
         {
           author: 'Areli Mosqueda',
-          value: 82396,
+          value: 72396,
           color: '#FFBF00',
         },
         {
@@ -71,7 +71,7 @@ export class ContributionsComponent implements OnInit {
         },
         {
           author: 'Armando Loredo',
-          value: 139984,
+          value: 89984,
           color: '#FF8000',
         },
         {

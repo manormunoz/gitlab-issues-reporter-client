@@ -1,0 +1,66 @@
+<!-- <div class="sm:col-span-2 lg:col-span-3 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6 mb-6">
+    <div class="flex text-2xl font-light tracking-tight text-secondary p-2">Tickets history</div>
+    <div class="flex items-center justify-between mt-1 ml-10 mr-6 sm:mr-10">
+        <div class="flex flex-col flex-auto h-80"> -->
+<div class="overflow-hidden m-2">
+  <div class="flex items-center justify-between">
+    <mat-card class="w-screen">
+      <mat-card-header>
+        <mat-card-title class="text-slate-200">Tickets by developer</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="grid grid-cols-12 h-120">
+          <div *ngIf="loading" class="flex flex-col items-center">
+            <mat-progress-spinner color="accent" mode="indeterminate" strokeWidth="6">
+            </mat-progress-spinner>
+          </div>
+          <div class="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 h-full">
+            <mat-card-subtitle>All</mat-card-subtitle>
+            <apx-chart *ngIf="!loading && chart" class="flex flex-auto h-full w-full" [chart]="chart.chart"
+              [colors]="chart.colors" [labels]="chart.labels" [plotOptions]="chart.plotOptions" [series]="chart.series"
+              [states]="chart.states" [tooltip]="chart.tooltip"></apx-chart>
+          </div>
+          <div class="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 h-60">
+            <mat-card-subtitle>Opened</mat-card-subtitle>
+            <apx-chart *ngIf="!loading && chartOpened" class="flex flex-auto h-full w-full" [chart]="chartOpened.chart"
+              [colors]="chartOpened.colors" [labels]="chartOpened.labels" [plotOptions]="chartOpened.plotOptions"
+              [series]="chartOpened.series" [states]="chartOpened.states" [tooltip]="chartOpened.tooltip"></apx-chart>
+          </div>
+          <div class="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 h-60">
+            <mat-card-subtitle>Closed</mat-card-subtitle>
+            <apx-chart *ngIf="!loading && chartClosed" class="flex flex-auto h-full w-full" [chart]="chartClosed.chart"
+              [colors]="chartClosed.colors" [labels]="chartClosed.labels" [plotOptions]="chartClosed.plotOptions"
+              [series]="chartClosed.series" [states]="chartClosed.states" [tooltip]="chartClosed.tooltip"></apx-chart>
+          </div>
+          <div class="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 h-60 overflow-auto">
+            <table *ngIf="!loading && chart"  class="mat-mdc-table mdc-data-table__table cdk-table">
+              <thead>
+                <tr class="mat-mdc-header-row mdc-data-table__header-row cdk-header-row">
+                  <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell"></th>
+                  <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell">Closed</th>
+                  <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell">Opened</th>
+                  <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell">Total</th>
+                  <th class="mat-mdc-header-cell mdc-data-table__header-cell cdk-header-cell">Time</th>
+                </tr>
+              </thead>
+              <tbody class="mdc-data-table__content">
+                <tr *ngFor="let user of chart.labels;let i=index" class="mat-mdc-row mdc-data-table__row cdk-row">
+                  <td class="mat-mdc-cell mdc-data-table__cell cdk-cell" [ngStyle]="{'border-left': 'solid 5px ' + chart.colors[i] }">{{user}}</td>
+                  <td class="mat-mdc-cell mdc-data-table__cell cdk-cell">{{chartClosed.series[i]}}</td>
+                  <td class="mat-mdc-cell mdc-data-table__cell cdk-cell">{{chartOpened.series[i]}}</td>
+                  <td class="mat-mdc-cell mdc-data-table__cell cdk-cell">{{chart.series[i]}}</td>
+                  <td class="mat-mdc-cell mdc-data-table__cell cdk-cell">{{times[i]}}</td>
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<!-- </div>
+
+    </div>
+</div> -->
