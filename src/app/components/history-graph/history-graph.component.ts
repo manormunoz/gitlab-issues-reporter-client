@@ -48,10 +48,11 @@ export class HistoryGraphComponent implements OnInit, OnChanges {
     const petitions = this.periods.map(p => {
       const params: any = {
         ...p,
-        author_id: 1257257,
       };
       if (this.author_id) {
         params.author_id = this.author_id;
+      } else {
+        params['not[author_id]'] = 1257257;
       }
       return this.httpService.get('/issues_statistics', params);
     });

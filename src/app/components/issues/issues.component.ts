@@ -78,7 +78,10 @@ export class IssuesComponent implements OnInit, OnChanges{
     };
     if (this.author_id) {
       params.author_id = this.author_id;
+    } else {
+      params['not[author_id]'] = 1257257;
     }
+    console.log('params', params);
     const response = await this.httpService.get('/issues', params);
     // = parseInt(response.headers['x-total-pages'], 10);
     this.tableLength = parseInt(response.headers['x-total'], 10);

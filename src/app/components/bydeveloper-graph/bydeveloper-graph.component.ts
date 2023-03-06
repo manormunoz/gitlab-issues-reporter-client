@@ -59,6 +59,8 @@ export class BydeveloperGraphComponent implements OnInit, OnChanges {
     };
     if (this.author_id) {
       params.author_id = this.author_id;
+    } else {
+      params['not[author_id]'] = 1257257;
     }
     const response = await this.httpService.get('/issues', params);
     issues = issues.concat(...response.body);
