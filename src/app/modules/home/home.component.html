@@ -10,6 +10,7 @@
     <div class="min-h-240 p-6">
       <app-period (change)="changePeriod($event)"></app-period>
       <app-history-graph [periods]="periods" [interval]="interval"></app-history-graph>
+      <app-bydeveloper-graph [start]="startIssues" [end]="endIssues"></app-bydeveloper-graph>
       <app-issues [start]="startIssues" [end]="endIssues"></app-issues>
     </div>
   </div>

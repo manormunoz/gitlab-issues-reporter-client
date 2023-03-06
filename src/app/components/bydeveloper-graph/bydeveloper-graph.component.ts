@@ -85,6 +85,7 @@ export class BydeveloperGraphComponent implements OnInit, OnChanges {
     const opened: any = {
       series: [],
     };
+    this.times = [];
     const grouped = _.map(_.groupBy(issues, i => i.assignee?.name || 'Unassigned'), (e, i) => ({user: i, issues: _.groupBy(e, j => j.state)}));
     grouped.forEach((g: any) => {
       const timeOpened = _.sumBy(g.issues.opened || [], (i: any) => i.time_stats?.total_time_spent || 0);
@@ -96,7 +97,7 @@ export class BydeveloperGraphComponent implements OnInit, OnChanges {
       closed.series.push((g.issues.closed || []).length);
       opened.series.push((g.issues.opened || []).length);
     });
-    // console.log(this.times);
+    console.log(this.times);
     // [].map(i => {
     //   const label = this.getLabel(i.service_desk_reply_to);
     //   all.push({

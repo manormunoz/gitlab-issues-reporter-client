@@ -5,25 +5,27 @@ import { CommonModule } from '@angular/common';
 import { PeriodModule } from '../../components/period/period.module';
 import { IssuesModule } from '../../components/issues/issues.module';
 import { HistoryGraphModule } from '../../components/history-graph/history-graph.module';
+import { BydeveloperGraphModule } from '../../components/bydeveloper-graph/bydeveloper-graph.module';
 
 const routes: Route[] = [
-    {
-        path: '',
-        component: HomeComponent
-    }
+  {
+    path: '',
+    component: HomeComponent
+  }
 ];
 
 @NgModule({
-    declarations: [
-        HomeComponent
-    ],
-    imports: [
-        CommonModule,
-        HistoryGraphModule,
-        PeriodModule,
-        IssuesModule,
-        RouterModule.forChild(routes),
-    ]
+  declarations: [
+    HomeComponent
+  ],
+  imports: [
+    CommonModule,
+    BydeveloperGraphModule,
+    HistoryGraphModule,
+    PeriodModule,
+    IssuesModule,
+    RouterModule.forChild(routes),
+  ]
 })
 export class HomeModule {
 }
