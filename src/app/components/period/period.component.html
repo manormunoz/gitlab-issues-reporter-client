@@ -11,30 +11,51 @@
   <mat-card-content>
     <mat-button-toggle-group class="hidden sm:inline-flex border-none space-x-1" [(ngModel)]="period"
       (change)="onChange();">
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-year">
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="last-year">
         Last year
       </mat-button-toggle>
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="current-year">
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="current-year">
         Current year
       </mat-button-toggle>
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-quarter">Last
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="last-quarter">Last
         quarter
       </mat-button-toggle>
       <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
         value="current-quarter">Current
         quarter
       </mat-button-toggle>
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-month">Last
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="last-month">Last
         month
       </mat-button-toggle>
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-30-days">Last
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="last-30-days">Last
         30 days
       </mat-button-toggle>
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="last-15-days">Last
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="last-15-days">Last
         15 days
       </mat-button-toggle>
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="other">Other
+      </mat-button-toggle>
     </mat-button-toggle-group>
-    <br/>
+    <br />
+    <div *ngIf="this.period === 'other'">
+      <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate [(ngModel)]="startDate" (dateChange)="onChange()" placeholder="Start date">
+          <input matEndDate [(ngModel)]="endDate" (dateChange)="onChange()" placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
     <mat-button-toggle-group class="hidden sm:inline-flex border-none space-x-1 mt-2" [(ngModel)]="interval"
       (change)="onChange();">
       <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="days">
@@ -50,7 +71,8 @@
       <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="months">
         Months
       </mat-button-toggle>
-      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium" value="quarters">
+      <mat-button-toggle class="px-1.5 rounded-full overflow-hidden border border-gray-500 font-medium"
+        value="quarters">
         Quarters
       </mat-button-toggle>
     </mat-button-toggle-group>

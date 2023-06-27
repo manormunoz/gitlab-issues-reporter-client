@@ -11,12 +11,15 @@ export class PeriodComponent implements OnInit {
 
   period = 'last-15-days';
   interval: any = 'days';
+  startDate = DateTime.now().startOf('month').toJSDate();
+  endDate = DateTime.now().endOf('month').toJSDate();
   constructor() {
   }
 
   ngOnInit(): void {
     this.onChange();
   }
+
   public onChange() {
     let start;
     let end;
@@ -48,6 +51,10 @@ export class PeriodComponent implements OnInit {
       case 'last-15-days':
         start = DateTime.now().minus({ days: 15 }).startOf('day');
         end = DateTime.now().endOf('day');
+        break;
+      case 'other':
+        start = DateTime.fromJSDate(this.startDate).startOf('day');
+        end = DateTime.fromJSDate(this.endDate).endOf('day');
         break;
       default:
         start = DateTime.now().minus({ months: 1 }).startOf('day');
